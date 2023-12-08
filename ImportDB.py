@@ -1,11 +1,18 @@
-dataSources = ("http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data","http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.test")
+import os
+import requests
 
-def downloadSource(path='dataset', urls=dataSources):
+#sourcedata
+dataSource = ("http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data","http://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.test")
+
+def downloadSource(path='dataset', urls=dataSource):
     if not os.path.exists(path):
         os.mkdir(path)
 
-    for url in urls:
+    for i, url in enumerate(urls):
         response = requests.get(url)
-        name = os.path.basename(url)
-        with open(os.path.join(path, name), 'wb') as f:
+        #save as adult 1 and 2
+        filename = f'adult{i + 1}.csv'
+        with open(os.path.join(path, filename), 'wb') as f:
             f.write(response.content)
+
+downloadSource()
