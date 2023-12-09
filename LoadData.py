@@ -19,14 +19,14 @@ for column in convert_columns:
 # Drop rows with NaN values in the specified columns after conversion
 adult_data.dropna(subset=convert_columns, inplace=True)
 
-# Function to perform query on the dataset
-def query_data(query):
-    return adult_data.query(query)
+# Function to perform query on the dataset by country
+def query_data_by_country(country):
+    return adult_data[adult_data['native_country'] == country]
 
 # Example usage:
-# Query the dataset for individuals over the age of 30
-result = query_data("age > 30")
+# Query the dataset for individuals from a specific country, e.g., United-States
+result = query_data_by_country("United-States")
 
 # Display the result
 print(result.head())  # This will print the first 5 rows of the filtered data
-print(f"Total count of individuals over age 30: {len(result)}")  # This will print the total count
+print(f"Total count of individuals from United-States: {len(result)}")  # This will print the total count
