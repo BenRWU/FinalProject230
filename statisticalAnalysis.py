@@ -26,7 +26,7 @@ y = us_data['income_>50K']  # Assuming 'income_>50K' is the binary target
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Create and train the logistic regression model
-model = LogisticRegression(max_iter=1000)
+model = LogisticRegression(max_iter=50000)  # Increased max_iter
 model.fit(X_train, y_train)
 
 # Predictions and Evaluations
@@ -34,7 +34,7 @@ predictions = model.predict(X_test)
 print(classification_report(y_test, predictions))
 
 # Fit logistic regression model on the entire dataset for complete coefficient analysis
-full_model = LogisticRegression(max_iter=1000)
+full_model = LogisticRegression(max_iter=50000)  # Increased max_iter
 full_model.fit(X, y)
 
 # Create a DataFrame for the coefficients
