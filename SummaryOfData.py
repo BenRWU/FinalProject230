@@ -7,7 +7,7 @@ data_path = 'dataset/AdultsData_OnlyUS.csv'
 us_data = pd.read_csv(data_path)
 
 # Define Numerical and Categorical Features
-numerical_features = ['age', 'fnlwgt', 'education_num', 'capital_gain', 'capital_loss', 'hours_per_week']
+numerical_features = ['age', 'hours_per_week']
 categorical_features = ['workclass', 'education', 'marital_status', 'occupation', 'relationship', 'race', 'sex', 'income']
 
 

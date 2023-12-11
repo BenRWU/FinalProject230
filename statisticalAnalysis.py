@@ -52,3 +52,33 @@ plt.title('Logistic Regression Coefficients (Positive vs Negative Influence)')
 plt.xlabel('Coefficient Value')
 plt.ylabel('Features')
 plt.show()
+
+
+male_data = us_data[us_data['sex_Male'] == 1]
+female_data = us_data[us_data['sex_Male'] == 0]
+
+# Common function to fit model and plot coefficients
+def fit_and_plot(data, title):
+    excluded_features = ['income_>50K', 'fnlwgt', 'sex_Male']  # 'sex_Female' removed as it does not exist
+    X = data.drop(excluded_features, axis=1)
+    y = data['income_>50K']
+
+    model = LogisticRegression(max_iter=50000)
+    model.fit(X, y)
+
+    coefficients = pd.DataFrame({'Feature': X.columns, 'Coefficient': model.coef_[0]})
+    coefficients['Influence'] = coefficients['Coefficient'].apply(lambda x: 'Positive' if x > 0 else 'Negative')
+    coefficients = coefficients.sort_values(by='Coefficient', ascending=False)
+
+    plt.figure(figsize=(10, 8))
+    sns.barplot(x='Coefficient', y='Feature', hue='Influence', data=coefficients)
+    plt.title(title)
+    plt.xlabel('Coefficient Value')
+    plt.ylabel('Features')
+    plt.show()
+
+# Fit model and plot for male data
+fit_and_plot(male_data, 'Logistic Regression Coefficients for Males (Positive vs Negative Influence)')
+
+# Fit model and plot for female data
+fit_and_plot(female_data, 'Logistic Regression Coefficients for Females (Positive vs Negative Influence)')
